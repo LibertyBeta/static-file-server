@@ -3,15 +3,17 @@ package main
 import (
 	"net/http"
 	"os"
+	"log"
 )
 
 func main() {
 	host := env("HOST", "")
 	port := env("PORT", "8080")
 	folder := env("FOLDER", "/web") + "/"
+	file := env("FILENAME", "file.pdf")
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, folder+r.URL.Path)
+		http.ServeFile(w, r, folder+file)
 	})
 	http.ListenAndServe(host+":"+port, nil)
 }
